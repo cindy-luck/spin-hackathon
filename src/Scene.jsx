@@ -1,6 +1,6 @@
 import { Circle, Html, OrbitControls, Stats, useProgress } from '@react-three/drei';
-import { Canvas, useLoader } from '@react-three/fiber';
-import React, { Suspense } from 'react';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import React, { Suspense, useRef } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
@@ -10,25 +10,50 @@ function Loader() {
   return <Html center>{progress} % loaded</Html>
 }
 
+const Model = () => {
+  const gltf = useLoader(GLTFLoader, '/soccerBall.glb');
+  const modelRef = useRef();
+
+  useFrame((state, delta) => {
+    if (modelRef.current) {
+      modelRef.current.rotation.y += delta * 0.5;
+      modelRef.current.rotation.x += delta * 0.5;
+      modelRef.current.rotation.z += delta * 0.5;
+    }
+  });
+
+  return (
+    <primitive
+      ref={modelRef}
+      object={gltf.scene}
+      position={[0, 1, 0]}
+      castShadow
+    />
+  );
+};
+
 const Scene = () => {
-  const gltf = useLoader(GLTFLoader, '/mug.glb')
+  const gltf = useLoader(GLTFLoader, '/soccerBall.glb')
+  const modelRef = useRef();
 
   return (
     <Suspense fallback={<Loader />}>
-      <Canvas shadows>
+      <Canvas>
         <directionalLight
           position={[-1.3, 6.0, 4.4]}
-          castShadow
           intensity={Math.PI * 1}
+          castShadow
+          receiveShadow
         />
-        <primitive
+        <ambientLight
+          intensity={1}
+        />
+        {/* <primitive
           object={gltf.scene}
           position={[0, 1, 0]}
           children-0-castShadow
-        />
-        <Circle args={[10]} rotation-x={-Math.PI / 2} receiveShadow>
-          <meshStandardMaterial />
-        </Circle>
+        /> */}
+        <Model />
         <OrbitControls target={[0, 1, 0]} />
         <axesHelper args={[5]} />
         <Stats />
