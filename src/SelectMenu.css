@@ -1,0 +1,92 @@
+.levelSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  width: 100px;
+}
+
+.levels {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.levelCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  color: #333;
+  margin-right: 20px;
+}
+
+.levelCard:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.categoryList {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+.categoryList.expanded {
+  max-height: 500px; /* big enough for all categories */
+}
+
+.categoryCard {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 8px;
+  background-color: lightskyblue;
+  border-radius: 10px;
+  padding: 10px 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.categoryCard:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.modelList {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+.modelList.expanded {
+  max-height: 500px; /* big enough for all models */
+}
+
+.modelCard {
+  margin-left: 40px;
+  margin-right: 20px;
+  margin-top: 6px;
+  background-color: lightsteelblue;
+  border-radius: 8px;
+  padding: 10px 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.modelCard:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}

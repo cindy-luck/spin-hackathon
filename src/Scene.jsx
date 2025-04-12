@@ -1,6 +1,6 @@
 import { Circle, Html, OrbitControls, Stats, useProgress } from '@react-three/drei';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
@@ -10,8 +10,14 @@ function Loader() {
   return <Html center>{progress} % loaded</Html>
 }
 
-const Scene = () => {
-  const gltf = useLoader(GLTFLoader, '/models/soccerBall.glb');
+const Scene = ({ pathToModel }) => {
+  const [gltf, setGltf] = useState();
+
+  // gltf = useLoader(GLTFLoader, '/models/soccer_ball.glb');
+
+  useEffect(() => {
+    console.log(pathToModel)
+  }, [pathToModel])
   
   const Model = () => {
     const modelRef = useRef();

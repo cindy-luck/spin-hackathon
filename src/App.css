@@ -7,14 +7,26 @@
   padding: auto;
 }
 
-.drawingContainer {
-  width: 50vw;
+.leftContainer {
+  width: 60vw;
   height: 100vh;
   background-color: white;
+  padding: 20px 30px;
+  margin: 0px 10px;
+  overflow: visible;
 }
 
 .modelContainer {
-  width: 50vw;
+  width: 40vw;
   height: 100vh;
   background-color: #242424;;
+}
+
+.backBtn {
+  color: gray;
+  background-color: white;
+  font-weight: bold;
+  font-size: large;
+  border-width: 0px;
+  cursor: pointer;
 }
