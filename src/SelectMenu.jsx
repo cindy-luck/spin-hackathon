@@ -11,7 +11,12 @@ const levels = [
         label: 'Foundational Shapes',
         models: [
           { name: 'Cube', path: '/models/cube.glb' },
+          { name: 'Cylinder', path: '/models/cylinder.glb'},
           { name: 'Soccer Ball', path: '/models/soccer_ball.glb' },
+          { name: 'Dumbbell', path: '/models/dumbbell.glb' },
+          { name: 'Pyramid', path: '/models/pyramid.glb' },
+          { name: 'Intersecting', path: '/models/intersecting1.glb' },
+          { name: 'Sphere', path: '/models/sphere.glb' },
         ]
       },
       {

@@ -5,17 +5,19 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
 function Loader() {
-  const { progress } = useProgress()
-  console.log(progress)
+  const { progress } = useProgress();
   return <Html center>{progress} % loaded</Html>
 }
 
 const Scene = ({ pathToModel }) => {
-  const [gltf, setGltf] = useState();
-
-  // gltf = useLoader(GLTFLoader, '/models/soccer_ball.glb');
-
+  const [gltf, setGltf] = useState(useLoader(GLTFLoader, '/models/soccer_ball.glb'));
   useEffect(() => {
+    if(pathToModel) {
+      new GLTFLoader().load(pathToModel.path, (loadedGltf) => {
+        setGltf(loadedGltf);
+      });
+    }
+
     console.log(pathToModel)
   }, [pathToModel])
   
@@ -25,9 +27,12 @@ const Scene = ({ pathToModel }) => {
     // Ball rotation on the x,y,z axis
     useFrame((state, delta) => {
       if (modelRef.current) {
-        modelRef.current.rotation.x += delta * 0.5;
-        modelRef.current.rotation.y += delta * 0.5;
-        modelRef.current.rotation.z += delta * 0.5;
+        // modelRef.current.rotation.x += delta * 0.5;
+        // modelRef.current.rotation.y += delta * 0.5;
+        // modelRef.current.rotation.z += delta * 0.5;
+        // modelRef.current.rotation.x += delta * 0.9;
+        // modelRef.current.rotation.y += delta * 1;
+        // modelRef.current.rotation.z += delta * 0.8;
       }
     });
   

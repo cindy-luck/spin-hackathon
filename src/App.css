@@ -13,13 +13,41 @@
   background-color: white;
   padding: 20px 30px;
   margin: 0px 10px;
-  overflow: visible;
+  overflow-y: scroll;
 }
 
 .modelContainer {
+  display: flex;
   width: 40vw;
   height: 100vh;
   background-color: #242424;;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+.overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  left: 63vw;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 2;
+}
+
+.startBtn {
+  position: absolute;
+  z-index: 3;
+  background-color: white;
+  color: black;
+  margin-top: 50vh;
+
+  border-radius: 20px;
+  padding: 1.5vh 2vw;
+  cursor: pointer;
 }
 
 .backBtn {

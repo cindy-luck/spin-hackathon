@@ -35,7 +35,13 @@ function App() {
         
       </div>
       <div className='modelContainer'>
+        { (model !== '') && view == 'menu' && 
+          <div class="overlay"></div>
+        }
         <Scene pathToModel={model} /> 
+        { (model !== '') && view == 'menu' &&
+          <button class="startBtn" onClick={openCanvas}>Start Drawing</button>
+        }
       </div>
     </div>
   )
