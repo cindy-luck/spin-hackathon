@@ -8,7 +8,7 @@
 }
 
 .leftContainer {
-  width: 60vw;
+  width: 50vw;
   height: 100vh;
   background-color: white;
   padding: 20px 30px;
@@ -18,7 +18,7 @@
 
 .modelContainer {
   display: flex;
-  width: 40vw;
+  width: 50vw;
   height: 100vh;
   background-color: #242424;;
   justify-content: center;
@@ -31,7 +31,7 @@
   width: 100vw;
   height: 100%;
   top: 0;
-  left: 63vw;
+  left: calc(50vw + 40px);
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);

@@ -92,7 +92,7 @@ const LevelSelection = ({ onSelect }) => {
 
   return (
     <div className="levelSelector">
-      <img alt="Logo" src="/public/logos/spinlogo.png" className="title" />
+      <img alt="Logo" src="/logos/spinlogo.png" className="title" />
       <div className="levels">
         {levels.map((level) => (
           <div key={level.label}>
