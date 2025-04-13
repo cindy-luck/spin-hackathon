@@ -3,6 +3,9 @@ import './App.css'
 import Scene from './Scene';
 import SelectMenu from './SelectMenu';
 import { Canvas } from '@react-three/fiber';
+import WhiteBoard from './WhiteBoard'
+
+
 
 function App() {
 
@@ -25,9 +28,10 @@ function App() {
 
         {/* View: Canvas */}
         { view == 'canvas' && 
-          <button className='backBtn' onClick={handleBack}>Back</button>
-          
-
+          <>
+            <button className='backBtn' onClick={handleBack}>Back</button> 
+            <WhiteBoard/>
+          </>         
         }
         
       </div>
