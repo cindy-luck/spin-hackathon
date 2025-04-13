@@ -29,53 +29,54 @@ const WhiteBoard = () => {
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
     });
-
+  
     setIsDrawing(true);
-
-
-
-    // Draw a dot
-
+  
     const ctx = ctxRef.current;
     ctx.beginPath();
     ctx.arc(e.clientX - rect.left, e.clientY - rect.top, lineWeight / 2, 0, 2 * Math.PI);
     ctx.fillStyle = color;
     ctx.fill();
     ctx.closePath();
-
+  
+    // Add global listeners so drawing continues outside the canvas
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
   };
 
 
 
   const handleMouseMove = (e) => {
-    if (!isDrawing) return;
+    if (!isDrawing || (prev.x === 0 && prev.y === 0)) return;
+  
     const rect = canvasRef.current.getBoundingClientRect();
     const currX = e.clientX - rect.left;
     const currY = e.clientY - rect.top;
-
+  
     const ctx = ctxRef.current;
     ctx.strokeStyle = color;
     ctx.lineWidth = lineWeight;
-
+  
     ctx.beginPath();
     ctx.moveTo(prev.x, prev.y);
     ctx.lineTo(currX, currY);
     ctx.stroke();
     ctx.closePath();
-
+  
     setPrev({ x: currX, y: currY });
   };
 
+  const handleMouseUp = () => {
+    setIsDrawing(false);
+    setPrev({ x: 0, y: 0 }); // Reset so it doesn't draw from old point
+    window.removeEventListener('mousemove', handleMouseMove);
+    window.removeEventListener('mouseup', handleMouseUp);
+  };
 
-  const handleMouseUp = () => setIsDrawing(false);
-  const handleMouseOut = () => setIsDrawing(false);
   const handleClear = () => {
-
     const canvas = canvasRef.current;
     ctxRef.current.clearRect(0, 0, canvas.width, canvas.height);
   };
-
-
 
   const handleToolChange = (toolType) => {
     setTool(toolType);
@@ -87,8 +88,6 @@ const WhiteBoard = () => {
       setLineWeight(20);
     }
   };
-
-
 
   return (
 
@@ -133,7 +132,6 @@ const WhiteBoard = () => {
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
-        onMouseOut={handleMouseOut}
       />
     </div>
 
