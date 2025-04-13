@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 
 import './WhiteBoard.css';
 
-const CanvasDrawer = () => {
+const WhiteBoard = () => {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -92,10 +92,10 @@ const CanvasDrawer = () => {
 
   return (
 
-    <div style={styles.appContainer}>
-      <div style={styles.panel}>
-        <div style={styles.sliderContainer}>
-          <label style={styles.sliderLabel}>Line Weight</label>
+    <div className="app-container">
+      <div className="panel">
+        <div className="slider-container">
+          <label className="slider-label">Line Weight</label>
           <input
             type="range"
             min="1"
@@ -103,41 +103,40 @@ const CanvasDrawer = () => {
             step="0.1"
             value={lineWeight}
             onChange={(e) => setLineWeight(parseFloat(e.target.value))}
-            style={styles.slider}
+            className="slider"
           />
-
         </div>
         <div>
-
           <button
-            style={{ ...styles.switch, ...(tool === 'pen' ? styles.active : {}) }}
+            className={`switch ${tool === 'pen' ? 'active' : ''}`}
             onClick={() => handleToolChange('pen')}
           >
             Pen
           </button>
-
           <button
-            style={{ ...styles.switch, ...(tool === 'eraser' ? styles.active : {}) }}
+            className={`switch ${tool === 'eraser' ? 'active' : ''}`}
             onClick={() => handleToolChange('eraser')}
           >
             Eraser
           </button>
-          <button style={styles.clear} onClick={handleClear}>
+          <button className="clear" onClick={handleClear}>
             Clear
           </button>
-
         </div>
       </div>
+
       <canvas
         ref={canvasRef}
         width={600}
         height={600}
-        style={styles.canvas}
+        className="canvas"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseOut={handleMouseOut}
       />
     </div>
+
   );
-};
+}
+export default WhiteBoard;

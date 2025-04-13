@@ -3,8 +3,7 @@ import './App.css'
 import Scene from './Scene';
 import SelectMenu from './SelectMenu';
 import { Canvas } from '@react-three/fiber';
-
-
+import WhiteBoard from './WhiteBoard'
 
 
 
@@ -12,8 +11,6 @@ function App() {
 
   const [view, setView] = useState('menu');
   const [model, setSelectedModel] = useState('');
-
-
 
   const handleBack = () => setView('menu');
   const openCanvas = () => setView('canvas'); 
@@ -31,21 +28,22 @@ function App() {
 
         {/* View: Canvas */}
         { view == 'canvas' && 
-          <button className='backBtn' onClick={handleBack}>Back</button>
-          
-
+          <>
+            <button className='backBtn' onClick={handleBack}>Back</button> 
+            <WhiteBoard/>
+          </>         
         }
         
       </div>
       <div className='modelContainer'>
         { (model !== '') && view == 'menu' && 
-          <div class="overlay"></div>
+          <div className="overlay"></div>
         }
         <Canvas>
           <Scene pathToModel={model} />
         </Canvas> 
         { (model !== '') && view == 'menu' &&
-          <button class="startBtn" onClick={openCanvas}>Start Drawing</button>
+          <button className="startBtn" onClick={openCanvas}>Start Drawing</button>
         }
       </div>
     </div>
