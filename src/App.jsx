@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css'
 import Scene from './Scene';
 import SelectMenu from './SelectMenu';
+import { Canvas } from '@react-three/fiber';
 
 
 
@@ -38,7 +39,9 @@ function App() {
         { (model !== '') && view == 'menu' && 
           <div class="overlay"></div>
         }
-        <Scene pathToModel={model} /> 
+        <Canvas>
+          <Scene pathToModel={model} />
+        </Canvas> 
         { (model !== '') && view == 'menu' &&
           <button class="startBtn" onClick={openCanvas}>Start Drawing</button>
         }
