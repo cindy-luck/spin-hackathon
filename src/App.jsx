@@ -26,6 +26,8 @@ function App() {
         {/* View: Canvas */}
         { view == 'canvas' && 
           <button className='backBtn' onClick={handleBack}>Back</button>
+          
+
         }
         
       </div>
