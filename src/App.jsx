@@ -4,16 +4,10 @@ import Scene from './Scene';
 import SelectMenu from './SelectMenu';
 import { Canvas } from '@react-three/fiber';
 
-
-
-
-
 function App() {
 
   const [view, setView] = useState('menu');
   const [model, setSelectedModel] = useState('');
-
-
 
   const handleBack = () => setView('menu');
   const openCanvas = () => setView('canvas'); 
@@ -37,13 +31,13 @@ function App() {
       </div>
       <div className='modelContainer'>
         { (model !== '') && view == 'menu' && 
-          <div class="overlay"></div>
+          <div className="overlay"></div>
         }
         <Canvas>
           <Scene pathToModel={model} />
         </Canvas> 
         { (model !== '') && view == 'menu' &&
-          <button class="startBtn" onClick={openCanvas}>Start Drawing</button>
+          <button className="startBtn" onClick={openCanvas}>Start Drawing</button>
         }
       </div>
     </div>
