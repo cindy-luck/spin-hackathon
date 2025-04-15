@@ -1,6 +1,5 @@
 .container {
   width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: row;
   margin: auto;
@@ -9,12 +8,15 @@
 
 .leftContainer {
   width: 50vw;
-  height: 100vh;
   background-color: white;
   padding: 20px 30px;
   margin: 0px 10px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  display: flex; /* Make leftContainer a flex container */
+  flex-direction: column; /* Arrange items within leftContainer vertically */
+  position: relative; /* Establish positioning context for children */
 }
+
 
 .modelContainer {
   display: flex;
@@ -51,10 +53,52 @@
 }
 
 .backBtn {
-  color: gray;
-  background-color: white;
+  color: black;
+  background-color: gray;
+  color: white;
+  border-radius: 20px;
   font-weight: bold;
   font-size: large;
-  border-width: 0px;
   cursor: pointer;
+  left: 40px;
+  padding: 6px 12px;
+  position: absolute;
+}
+
+.submitBtn {
+  color: black;
+  background: steelblue;
+  color: white;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: large;
+  cursor: pointer;
+  right: 40px;
+  padding: 6px 12px;
+  position: absolute;
+}
+
+.startNowBtn {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: steelblue;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+}
+
+.countdown-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.75);
+  color: white;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  z-index: 999;
+  text-align: center;
 }

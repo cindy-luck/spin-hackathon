@@ -1,16 +1,25 @@
-import React, { useRef, useState, useEffect } from 'react';
-
+import React, { useRef, useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import './WhiteBoard.css';
 
-const WhiteBoard = () => {
+// Use forwardRef to expose the captureImage method to the parent
+const WhiteBoard = forwardRef(({ setCanvasImage }, ref) => {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [color, setColor] = useState('black');
   const [lineWeight, setLineWeight] = useState(2);
   const [tool, setTool] = useState('pen');
-
   const [prev, setPrev] = useState({ x: 0, y: 0 });
+
+  // Expose the captureImage method to the parent using useImperativeHandle
+  useImperativeHandle(ref, () => ({
+    captureImage() {
+      const canvas = canvasRef.current;
+      const imageData = canvas.toDataURL('image/png');
+      console.log(imageData)
+      setCanvasImage(imageData);  // Send the image data to the parent
+    }
+  }));
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -19,56 +28,55 @@ const WhiteBoard = () => {
     ctx.lineCap = 'round';
     ctxRef.current = ctx;
 
+    const resizeCanvas = () => {
+      const container = canvas.parentElement;
+      const panel = container.querySelector('.panel');
+      const panelHeight = panel.clientHeight;
+      canvas.width = container.clientWidth;
+      canvas.height = container.clientHeight - panelHeight;
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+    };
   }, []);
-
-
 
   const handleMouseDown = (e) => {
     const rect = canvasRef.current.getBoundingClientRect();
-    setPrev({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  
+    setPrev({ x: e.clientX - rect.left, y: e.clientY - rect.top });
     setIsDrawing(true);
-  
     const ctx = ctxRef.current;
     ctx.beginPath();
     ctx.arc(e.clientX - rect.left, e.clientY - rect.top, lineWeight / 2, 0, 2 * Math.PI);
     ctx.fillStyle = color;
     ctx.fill();
     ctx.closePath();
-  
-    // Add global listeners so drawing continues outside the canvas
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
   };
 
-
-
   const handleMouseMove = (e) => {
     if (!isDrawing || (prev.x === 0 && prev.y === 0)) return;
-  
     const rect = canvasRef.current.getBoundingClientRect();
     const currX = e.clientX - rect.left;
     const currY = e.clientY - rect.top;
-  
     const ctx = ctxRef.current;
     ctx.strokeStyle = color;
     ctx.lineWidth = lineWeight;
-  
     ctx.beginPath();
     ctx.moveTo(prev.x, prev.y);
     ctx.lineTo(currX, currY);
     ctx.stroke();
     ctx.closePath();
-  
     setPrev({ x: currX, y: currY });
   };
 
   const handleMouseUp = () => {
     setIsDrawing(false);
-    setPrev({ x: 0, y: 0 }); // Reset so it doesn't draw from old point
+    setPrev({ x: 0, y: 0 });
     window.removeEventListener('mousemove', handleMouseMove);
     window.removeEventListener('mouseup', handleMouseUp);
   };
@@ -90,7 +98,6 @@ const WhiteBoard = () => {
   };
 
   return (
-
     <div className="app-container">
       <div className="panel">
         <div className="slider-container">
@@ -126,15 +133,13 @@ const WhiteBoard = () => {
 
       <canvas
         ref={canvasRef}
-        width={600}
-        height={600}
         className="canvas"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       />
     </div>
-
   );
-}
+});
+
 export default WhiteBoard;

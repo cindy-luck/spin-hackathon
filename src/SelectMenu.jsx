@@ -93,7 +93,7 @@ const LevelSelection = ({ onSelect }) => {
   return (
     <div className="levelSelector">
       <img alt="Logo" src="/logos/spinlogo.png" className="title" />
-      <div className="levels">
+      <div className="levels scrollContainer">
         {levels.map((level) => (
           <div key={level.label}>
             <div
@@ -143,7 +143,6 @@ const LevelSelection = ({ onSelect }) => {
     </div>
   );
 };
-
 
 function SelectMenu({ onSelect }) {
   return (
