@@ -90,3 +90,18 @@
   transform: scale(1.02);
   box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
+
+.scrollContainer {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.scrollContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
